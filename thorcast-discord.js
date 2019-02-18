@@ -12,7 +12,7 @@ client.on('message', (receivedMessage) => {
     if (receivedMessage.author === client.user) {
         return
     }
-    const REPrefix = `^(?:(?:!thor(?:cast)?)|(?:${client.user.toString()} ))`
+    const REPrefix = `^(?:(?:!thor(?:cast)?)|(?:${client.user.toString()}))`
     const isToThorcast = new RegExp(REPrefix, 'gm')
     // handle all commands starting with !thor, !thorcast, or @Thorcast
     if (isToThorcast.exec(receivedMessage.content)) {

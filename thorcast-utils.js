@@ -66,7 +66,7 @@ function getForecast(url, receivedMessage) {
 function helpMessage() {
     return `
     Usage:
-    !thorcast|!thor city, state, {{ period }}?
+    !thorcast|!thor city, state{{, period }}?
 
     Examples:
     !thor Chicago, IL, Tomorrow night
