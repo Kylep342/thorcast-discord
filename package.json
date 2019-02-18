@@ -1,0 +1,27 @@
+{
+  "name": "thorcast-discord",
+  "version": "1.0.0",
+  "description": "Discord client for Thorcast chat-weatherbot",
+  "main": "thorcast-discord.js",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kylep342/thorcast-discord.git"
+  },
+  "keywords": [
+    "Discord",
+    "Chatbot"
+  ],
+  "author": "Kyle Pekosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kylep342/thorcast-discord/issues"
+  },
+  "homepage": "https://github.com/Kylep342/thorcast-discord#readme"
+}
