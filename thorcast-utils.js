@@ -34,9 +34,6 @@ function forecastControl(regexMatch, receivedMessage) {
         state = regexMatch[3].replace(/ /g, '%20')
         url = `${THORCAST_API_URL}/api/city=${city}&state=${state}`
     }
-    //const forecast = getForecast(url, receivedMessage)
-    //console.log(forecast)
-    //return forecast
     getForecast(url, receivedMessage);
 }
 
@@ -50,16 +47,10 @@ function getForecast(url, receivedMessage) {
         });
 
         resp.on('end', () => {
-            //console.log(data);
-            //console.log(data.length);
             const forecast = JSON.parse(data);
             receivedMessage.channel.send(forecast.forecast);
         });
     });
-    //return forecast
-    /*.on('error', (err) => {
-            console.log(`Error: ${err.message}`);
-    });*/
 }
 
 
