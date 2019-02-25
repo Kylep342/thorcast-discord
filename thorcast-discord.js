@@ -5,7 +5,7 @@ const Utils = require('./thorcast-utils.js')
 BOT_TOKEN = process.env.DISCORD_BOT_TOKEN
 THORCAST_API_URL = process.env.THORCAST_API_URL
 
-const client = new Discord.Client()
+const client = new Discord.Client({autoReconnect: true})
 
 
 client.on('message', (receivedMessage) => {
