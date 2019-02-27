@@ -25,13 +25,13 @@ function forecastControl(regexMatch, receivedMessage) {
     let period = false;
     let url = ''
     if (regexMatch[4]) {
-        city = regexMatch[2].replace(/ /g, '%20')
-        state = regexMatch[3].replace(/ /g, '%20')
-        period = regexMatch[4].replace(/ /g, '%20')
+        city = regexMatch[2].replace(/ /g, '+')
+        state = regexMatch[3].replace(/ /g, '+')
+        period = regexMatch[4].replace(/ /g, '+')
         url = `${THORCAST_API_URL}/api/city=${city}&state=${state}&period=${period}`
     } else {
-        city = regexMatch[2].replace(/ /g, '%20')
-        state = regexMatch[3].replace(/ /g, '%20')
+        city = regexMatch[2].replace(/ /g, '+')
+        state = regexMatch[3].replace(/ /g, '+')
         url = `${THORCAST_API_URL}/api/city=${city}&state=${state}`
     }
     getForecast(url, receivedMessage);

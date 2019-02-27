@@ -6,4 +6,4 @@ WORKDIR /app
 RUN npm install
 
 # run client
-CMD node thorcast-discord.js
+CMD ["node", "thorcast-discord.js"]
