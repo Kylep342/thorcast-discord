@@ -6,4 +6,4 @@ WORKDIR /app
 RUN npm install
 
 # run client
-CMD ["node", "thorcast-discord.js"]
+ENTRYPOINT ["node", "thorcast-discord.js"]
