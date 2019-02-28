@@ -1,7 +1,7 @@
 FROM node:11.9.0
 
 # setup of client
-ADD . /app
+COPY . /app
 WORKDIR /app
 RUN npm install
 
