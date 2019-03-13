@@ -10,7 +10,6 @@ exports.processCommand = (receivedMessage, REPrefix) => {
         if (matches[1]) {
             receivedMessage.channel.send(helpMessage())
         } else {
-            //receivedMessage.channel.send(forecastControl(matches, receivedMessage))
             forecastControl(matches, receivedMessage)
         }
     } else {
@@ -57,10 +56,11 @@ function getForecast(url, receivedMessage) {
 function helpMessage() {
     return `
     Usage:
-    !thorcast|!thor city, state{{, period }}?
+    !thorcast|!thor|@Thorcast city, state{{, period }}
 
     Examples:
     !thor Chicago, IL, Tomorrow night
     !thorcast Los Angeles, California
+    @Thorcast New York City, New York, Wednesday
     `.replace(/^[\t ]+/gm, '').replace(/[\t ]+$/gm, '\n')
 }
