@@ -1,23 +1,23 @@
 const http = require('http')
 
 
-exports.processCommand = (receivedMessage, REPrefix) => {
+exports.processCommand = (message, REPrefix) => {
     const commandRegex = new RegExp(`${REPrefix} (?:(help|random)|(?:([a-zA-Z ]+), ?([a-zA-Z ]+),? ?([a-zA-Z ]+)?))$`, 'gm')
-    let matches = commandRegex.exec(receivedMessage.content)
+    let matches = commandRegex.exec(message.content)
 
     if (matches) {
         console.log('Command received')
         if (matches[1]) {
             switch(matches[1]) {
                 case 'help':
-                    receivedMessage.channel.send(helpMessage())
+                    message.channel.send(helpMessage())
                     break;
                 case 'random':
-                    randomForecast(receivedMessage)
+                    randomForecast(message)
                     break;
             }
         } else {
-            forecastControl(matches, receivedMessage)
+            forecastControl(matches, message)
         }
     } else {
         return
@@ -25,7 +25,7 @@ exports.processCommand = (receivedMessage, REPrefix) => {
 }
 
 
-function forecastControl(regexMatch, receivedMessage) {
+function forecastControl(regexMatch, message) {
     let city
     let state
     let period = false;
@@ -34,24 +34,25 @@ function forecastControl(regexMatch, receivedMessage) {
         city = regexMatch[2].replace(/ /g, '+')
         state = regexMatch[3].replace(/ /g, '+')
         period = regexMatch[4].replace(/ /g, '+')
-        url = `${THORCAST_API_URL}/api/city=${city}&state=${state}&period=${period}`
+        url = `${THORCAST_API_URL}/api/forecast/city=${city}&state=${state}&period=${period}`
     } else {
         city = regexMatch[2].replace(/ /g, '+')
         state = regexMatch[3].replace(/ /g, '+')
-        url = `${THORCAST_API_URL}/api/city=${city}&state=${state}`
+        url = `${THORCAST_API_URL}/api/forecast/city=${city}&state=${state}`
     }
-    getForecast(url, receivedMessage);
+    getForecast(url, message);
 }
 
 
-function randomForecast(receivedMessage) {
-    url = `${THORCAST_API_URL}/api/random`
-    getForecast(url, receivedMessage)
+function randomForecast(message) {
+    url = `${THORCAST_API_URL}/api/forecast/random`
+    getForecast(url, message)
 }
 
 
-function getForecast(url, receivedMessage) {
+function getForecast(url, message) {
     http.get(url, (resp) => {
+            
         let data = ''
 
         resp.on('data', (chunk) => {
@@ -59,10 +60,38 @@ function getForecast(url, receivedMessage) {
         });
 
         resp.on('end', () => {
-            const forecast = JSON.parse(data);
-            receivedMessage.channel.send(forecast.forecast);
+            try {
+                const response = JSON.parse(data);
+                if (response.forecast) {
+                    message.channel.send(response.forecast);
+                } else {
+                    handleError(resp.statusCode, response, message);
+                }
+            } catch (e) {
+                console.error(e.message);
+            }
         });
-    });
+    })
+}
+
+
+function handleError(statusCode, resp, message) {
+    let errorMessage;
+    switch (statusCode) {
+        case 404:
+            errorMessage = `${resp.info}
+            Your inputs:
+            City: ${resp.city}
+            State: ${resp.state}
+            Period: ${resp.period}
+            Please ensure you've spelled everything correctly, then try again.
+            `.replace(/^[\t ]+/gm, '').replace(/[\t ]+$/gm, '\n')
+            break;
+        case 500:
+            errorMessage = resp.message
+            break;
+    }
+    message.channel.send(errorMessage);
 }
 
 
