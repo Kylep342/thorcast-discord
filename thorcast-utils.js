@@ -61,11 +61,11 @@ function getForecast(url, message) {
 
         resp.on('end', () => {
             try {
-                const response = JSON.parse(data);
-                if (response.forecast) {
-                    message.channel.send(response.forecast);
+                const apiResponse = JSON.parse(data);
+                if (resp.statusCode === 200) {
+                    message.channel.send(apiResponse.forecast);
                 } else {
-                    handleError(resp.statusCode, response, message);
+                    handleError(resp.statusCode, apiResponse, message);
                 }
             } catch (e) {
                 console.error(e.message);
