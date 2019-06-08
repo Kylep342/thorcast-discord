@@ -61,7 +61,10 @@ function getForecast(url, message) {
       try {
         const apiResponse = JSON.parse(data);
         if (resp.statusCode === 200) {
-          message.channel.send(apiResponse.forecast);
+          forecast = `${apiResponse.period}'s forecast for ${
+            apiResponse.city
+          }, ${apiResponse.state}:\n${apiResponse.forecast}`;
+          message.channel.send(forecast);
         } else {
           handleError(resp.statusCode, apiResponse, message);
         }
