@@ -146,10 +146,13 @@ function helpMessage() {
     return `
     Usage:
 
+    All commands must be prefixed with one of the following:
+    prefix = (!thorcast|!thor|@Thorcast)
+
     --------
 
     Get a forecast for a chosen city, state, and period
-    (!thorcast|!thor|@Thorcast) city, state{{, period }}
+    prefix city, state{{, period }}
 
     Examples:
     !thor Chicago, IL, Tomorrow night
@@ -159,7 +162,16 @@ function helpMessage() {
     --------
 
     Get a random forecast:
-    (!thorcast|!thor|@Thorcast) random
+    prefix random
+
+    --------
+
+    Get an hourly forecast for a chosen city and state
+    prefix city, state, hourly{{, hours }}
+
+    Examples:
+    !thor Muncie, IN, hourly
+    !thorcast Santa Fe, New Mexico, hourly, 8
     `
         .replace(/^[\t ]+/gm, "")
         .replace(/[\t ]+$/gm, "\n");
