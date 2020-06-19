@@ -65,7 +65,7 @@ function forecastControl(regexMatch, message) {
 }
 
 function randomForecast(message) {
-    url = `${THORCAST_API_URL}/api/forecast/detailed/random`;
+    const url = `${THORCAST_API_URL}/api/forecast/detailed/random`;
     getDetailedForecast(url, message);
 }
 
