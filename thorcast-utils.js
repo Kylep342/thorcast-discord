@@ -125,7 +125,7 @@ function handleError(statusCode, resp, message) {
     let errorMessage;
     switch (statusCode) {
         case 404:
-            errorMessage = `${resp.info}
+            errorMessage = `${resp.error}
             Your inputs:
             City: ${resp.city}
             State: ${resp.state}
